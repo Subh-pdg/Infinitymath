@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InfinityMath</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="infinite.png" type="image/png" />
+  <link rel="manifest" href="manifest.json">
+  <!-- Include Chart.js for charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <img src="infinite.png" alt="InfinityMath Logo" class="logo" />
+      <h1>InfinityMath</h1>
+      <div class="header-buttons">
+        <button id="scorecardBtn" class="btn">SCORECARD</button>
+        <button id="historyBtn" class="btn">HISTORY</button>
+      </div>
+    </header>
+
+    <!-- Start Screen -->
+    <div id="startScreen" class="start-screen">
+      <button id="startBtn" class="btn">Start</button>
+    </div>
+
+    <!-- Main Game Content (initially hidden) -->
+    <div id="gameContainer" class="main-content hidden">
+      <div id="question" class="question"></div>
+      <div class="input-container">
+        <input type="number" id="answer" class="answer-input" placeholder="Your answer" />
+      </div>
+      <div class="submit-container">
+        <button id="submitBtn" class="btn">Submit</button>
+      </div>
+      <div id="feedback" class="feedback hidden"></div>
+      <!-- Explanation section -->
+      <div id="explanation" class="explanation hidden"></div>
+      <button id="nextBtn" class="btn hidden">NEXT</button>
+      <div class="timer">
+        <span>Time Left: </span><span id="timeLeft"></span>
+      </div>
+      <!-- Visual Timer Progress Bar -->
+      <div id="timerProgressContainer">
+        <div id="timerProgress"></div>
+      </div>
+    </div>
+
+    <!-- Warning Banner -->
+    <div id="warningBanner" class="warning hidden">
+      Warning: You switched tabs. The scorecard has been reset.
+    </div>
+
+    <!-- Scorecard Modal -->
+    <div id="scorecardModal" class="modal">
+      <div class="modal-content">
+        <span class="close-cross" id="closeModal">&times;</span>
+        <h2>Scorecard</h2>
+        <div class="muldiv-toggle">
+          <input type="checkbox" id="toggleMulDiv">
+          <label for="toggleMulDiv">Enable Multiplication/Division Questions</label>
+        </div>
+        <div class="scorecard-grid">
+          <div class="scorecard-cell"><strong>Date</strong></div>
+          <div class="scorecard-cell" id="date"></div>
+          <div class="scorecard-cell"><strong>Total Sums</strong></div>
+          <div class="scorecard-cell" id="totalSums"></div>
+          <div class="scorecard-cell"><strong>Correct Answers</strong></div>
+          <div class="scorecard-cell" id="correctAnswers"></div>
+          <div class="scorecard-cell"><strong>Wrong Answers</strong></div>
+          <div class="scorecard-cell" id="wrongAnswers"></div>
+        </div>
+        <!-- Enhanced Charts -->
+        <h3>Performance Over Sessions</h3>
+        <canvas id="statsChart"></canvas>
+        <h3>Current Session Response Times</h3>
+        <canvas id="questionChart"></canvas>
+        <h3>Session Report Overview</h3>
+        <canvas id="sessionReportChart"></canvas>
+        <button id="showWarningsBtn" class="btn">Show Warning History</button>
+        <div id="warningsList" class="warnings-list hidden"></div>
+        <button id="downloadReportBtn" class="btn">Download Session Report</button>
+        <button id="endSessionBtn" class="btn">End Session</button>
+        <button id="deleteRecordsBtn" class="btn">Delete All Records</button>
+      </div>
+    </div>
+
+    <!-- History Modal -->
+    <div id="historyModal" class="modal">
+      <div class="modal-content">
+        <span class="close-cross" id="closeHistoryModal">&times;</span>
+        <h2>History</h2>
+        <div id="historyContent" class="history-cards-container">
+          <!-- History cards will be dynamically inserted here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Password Modal (for unlocking Scorecard/History) -->
+    <div id="passwordModal" class="modal">
+      <div class="modal-content password-modal">
+        <span class="close-cross" id="closePasswordModal">&times;</span>
+        <h2>Enter Password</h2>
+        <input type="password" id="passwordInput" placeholder="Enter password" />
+        <div id="passwordError" class="password-error hidden"></div>
+        <button id="passwordSubmitBtn" class="btn">Submit</button>
+      </div>
+    </div>
+
+    <!-- Delete Records Confirmation Modal -->
+    <div id="deleteRecordsModal" class="modal">
+      <div class="modal-content password-modal">
+        <span class="close-cross" id="closeDeleteModal">&times;</span>
+        <h2>Confirm Deletion</h2>
+        <p>Are you sure you want to delete all records? This will clear all session data, history, and warnings.</p>
+        <button id="confirmDeleteBtn" class="btn">Yes, Delete All Records</button>
+        <button id="cancelDeleteBtn" class="btn">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Notification Container for Custom Messages -->
+    <div id="notificationContainer"></div>
+  </div>
+
+  <!-- External JavaScript -->
+  <script src="app.js"></script>
+  <script>
+    // Show game on start button click.
+    document.getElementById('startBtn').addEventListener('click', function() {
+      document.getElementById('startScreen').classList.add('hidden');
+      document.getElementById('gameContainer').classList.remove('hidden');
+      if (typeof generateQuestion === 'function') {
+        generateQuestion();
+      }
+    });
+
+    // Register Service Worker for Offline Support
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('sw.js').then(function(registration) {
+          console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }, function(err) {
+          console.log('ServiceWorker registration failed: ', err);
+        });
+      });
+    }
+  </script>
+</body>
+</html>

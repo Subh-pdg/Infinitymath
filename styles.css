@@ -1,0 +1,467 @@
+/* Enable smooth scrolling throughout the document */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar Styles for WebKit browsers (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Custom Scrollbar Styles for Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
+}
+
+/* General styling */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #FAFAFA;
+  color: #4A4A4A;
+  margin: 0;
+  padding: 0;
+}
+
+/* Container */
+.container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Header */
+header {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+header h1 {
+  font-size: 36px;
+  color: #A7C7E7;
+}
+
+/* Header Buttons Container */
+.header-buttons {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.header-buttons .btn {
+  margin-left: 10px;
+}
+
+/* Buttons */
+.btn {
+  background-color: #FFB6A2;
+  color: #4A4A4A;
+  font-size: 20px;
+  padding: 14px 28px;
+  border: none;
+  cursor: pointer;
+  border-radius: 15px;
+  transition: background-color 0.3s ease;
+  margin: 10px;
+}
+
+.btn:hover {
+  background-color: #FF9E87;
+}
+
+/* Question area */
+.question {
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Input container */
+.input-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Input field */
+.answer-input {
+  font-size: 28px;
+  padding: 20px;
+  width: 400px;
+  border-radius: 15px;
+  border: 1px solid #A7C7E7;
+  text-align: center;
+  margin: 0 auto;
+}
+
+/* Timer */
+.timer {
+  font-size: 24px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* Timer Progress Bar */
+#timerProgressContainer {
+  width: 100%;
+  background-color: #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+#timerProgress {
+  height: 10px;
+  width: 100%;
+  background-color: #A7C7E7;
+  transition: width 1s linear;
+}
+
+/* Feedback */
+.feedback {
+  font-size: 28px;
+  padding: 20px;
+  margin: 20px auto;
+  text-align: center;
+  border-radius: 15px;
+  width: 400px;
+}
+
+.feedback.correct {
+  background-color: #A9E5B1;
+}
+
+.feedback.wrong {
+  background-color: #FF6A6A;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Explanation */
+.explanation {
+  font-size: 22px;
+  padding: 15px;
+  margin: 20px auto;
+  background-color: #FFF5A2;
+  text-align: center;
+  border-radius: 15px;
+  width: 550px;
+}
+
+/* New styles for Interactive Explanations */
+.explanation-step {
+  margin: 10px 0;
+  border: 1px solid #A7C7E7;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.step-toggle {
+  background-color: #A7C7E7;
+  color: #4A4A4A;
+  font-size: 18px;
+  padding: 10px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  cursor: pointer;
+}
+
+.step-toggle:hover {
+  background-color: #8FAFC9;
+}
+
+.step-detail {
+  background-color: #FFF5A2;
+  padding: 10px;
+  display: none;
+}
+
+.step-detail.active {
+  display: block;
+}
+
+/* Submit Button Centered */
+.submit-container {
+  text-align: center;
+  margin-top: 30px;
+}
+
+/* Modal (Scorecard, History, Password, Delete Confirmation) */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding-top: 20px;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 2% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+  border-radius: 15px;
+  position: relative;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+/* Password Modal specific styling */
+.password-modal {
+  width: 40%;
+  text-align: center;
+}
+
+.password-modal input[type="password"] {
+  font-size: 20px;
+  padding: 10px;
+  margin: 15px 0;
+  width: 80%;
+  border-radius: 10px;
+  border: 1px solid #A7C7E7;
+  text-align: center;
+}
+
+/* Style for password error message */
+.password-error {
+  color: red;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Scorecard Grid */
+.scorecard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 15px;
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+.scorecard-cell {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+/* Close Cross for Modals */
+.close-cross {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #FFA500;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close-cross:hover {
+  color: #FF9E00;
+}
+
+/* Next Question Button */
+#nextBtn {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 24px;
+  padding: 10px 20px;
+  background-color: #FFB6A2;
+  color: #4A4A4A;
+  border-radius: 15px;
+  cursor: pointer;
+  border: none;
+  margin: 0 auto;
+}
+
+#nextBtn:hover {
+  background-color: #FF9E87;
+}
+
+/* Warning Banner */
+.warning {
+  background-color: #FF6A6A;
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Logo */
+.logo {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+/* History Cards Container */
+.history-cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 10px;
+}
+
+/* History Card */
+.history-card {
+  background-color: #FFF;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* History Card Sections */
+.history-summary p,
+.history-details p {
+  margin: 5px 0;
+}
+
+/* Show More Button */
+.show-more-btn {
+  background-color: #FFB6A2;
+  color: #4A4A4A;
+  font-size: 16px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.show-more-btn:hover {
+  background-color: #FF9E87;
+}
+
+/* Download TXT Button */
+.download-btn {
+  background-color: #A7C7E7;
+  color: #4A4A4A;
+  font-size: 16px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.download-btn:hover {
+  background-color: #8FAFC9;
+}
+
+/* Warning History List in Scorecard Modal */
+#warningsList {
+  margin-top: 15px;
+  background-color: #FFF5A2;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 16px;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+/* Multiplication/Division Toggle Styling */
+.muldiv-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 15px 0;
+  font-size: 18px;
+}
+
+.muldiv-toggle input[type="checkbox"] {
+  margin-right: 10px;
+  transform: scale(1.2);
+}
+
+/* Statistics Dashboard Chart */
+#statsChart {
+  max-width: 100%;
+  margin: 20px 0;
+}
+
+/* Custom Notification Styles */
+#notificationContainer {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 2000;
+}
+.notification {
+  padding: 15px 20px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  color: #fff;
+  opacity: 0.9;
+  font-size: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+.notification.success {
+  background-color: #28a745;
+}
+.notification.error {
+  background-color: #dc3545;
+}
+.notification.info {
+  background-color: #17a2b8;
+}
+
+/* Responsive Design Enhancements */
+@media (max-width: 768px) {
+  .container {
+    width: 95%;
+    padding: 10px;
+  }
+  header h1 {
+    font-size: 28px;
+  }
+  .btn {
+    font-size: 16px;
+    padding: 10px 20px;
+  }
+  .question {
+    font-size: 36px;
+  }
+  .answer-input {
+    width: 80%;
+    font-size: 24px;
+    padding: 15px;
+  }
+  .explanation {
+    width: 90%;
+    font-size: 18px;
+  }
+  .scorecard-grid {
+    font-size: 16px;
+  }
+}

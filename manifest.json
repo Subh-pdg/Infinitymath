@@ -1,0 +1,20 @@
+{
+  "name": "InfinityMath",
+  "short_name": "InfinityMath",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#FAFAFA",
+  "theme_color": "#A7C7E7",
+  "icons": [
+    {
+      "src": "infinite.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "infinite.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
